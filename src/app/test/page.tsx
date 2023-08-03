@@ -10,7 +10,7 @@ export default function TestPage() {
   const { active, showSheet, hideSheet } = useSheet(false);
 
   return (
-    <div className="bg-blue-100 h-screen space-y-4">
+    <div className=" h-screen space-y-4">
       <div className="text-center py-4">
         <h1 className="text-2xl uppercase font-bold text-blue-900">Components Test Page</h1>
       </div>

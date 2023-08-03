@@ -13,7 +13,7 @@ export default function Sheet({ title, children, active, hideSheet }: Props) {
     <>
       <aside
         className={cn(
-          `fixed z-50 bg-white border-l border-slate-500 inset-y-0 w-full lg:w-1/4 md:w-1/3 h-full transition-all duration-500 ${
+          `fixed z-50 bg-white border-l border-slate-500 inset-y-0 w-full lg:w-1/4 md:w-1/3 h-full transition-all duration-700 ${
             active ? 'right-0 ' : '-right-full md:-right-1/3 ld:-right-1/4'
           }`
         )}
@@ -33,8 +33,8 @@ export default function Sheet({ title, children, active, hideSheet }: Props) {
         </div>
       </aside>
       <div
-        className={`fixed w-screen h-screen inset-0 backdrop-blur-sm transition-all duration-300 ${
-          active ? ' bg-black/40 z-40' : '-z-40 bg-black/0'
+        className={`fixed  inset-0 backdrop-blur-sm transition-opacity duration-700 bg-black/40 ${
+          active ? 'opacity-100 w-screen h-screen z-40' : 'opacity-0 h-0 w-0'
         }`}
       >
         <button
