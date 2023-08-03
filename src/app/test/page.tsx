@@ -1,8 +1,14 @@
+'use client';
+
 import Button from '@/components/Button';
-import Label from '@/components/Labels';
+import Label from '@/components/Label';
+import Sheet from '@/components/Sheet';
 import TextField from '@/components/TextField';
+import useSheet from '../hooks/useSheet';
 
 export default function TestPage() {
+  const { active, showSheet, hideSheet } = useSheet(false);
+
   return (
     <div className="bg-blue-100 h-screen space-y-4">
       <div className="text-center py-4">
@@ -37,6 +43,17 @@ export default function TestPage() {
             placeholder="Placeholder"
           />
         </div>
+      </div>
+
+      <div>
+        <h2 className="text-center uppercase text-lg text-blue-900 font-semibold">Sheets</h2>
+        <div className="flex items-center justify-center mt-4">
+          <Button onClick={showSheet}>Open</Button>
+        </div>
+        <Sheet
+          active={active}
+          hideSheet={hideSheet}
+        />
       </div>
     </div>
   );
