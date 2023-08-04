@@ -7,7 +7,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema, LoginSchemaType } from '@/schemas/login';
 
-export default function LoginForm() {
+interface Props {
+  handleEmailLogin: (email: string, password: string) => Promise<void>;
+}
+
+export default function LoginForm({ handleEmailLogin }: Props) {
   const {
     register,
     handleSubmit,
@@ -19,7 +23,7 @@ export default function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<LoginSchemaType> = (data) => {
-    console.log(data);
+    handleEmailLogin(data.email, data.password);
   };
 
   return (
