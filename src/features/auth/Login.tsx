@@ -45,9 +45,7 @@ export default function Login() {
       const user = await signInWithPopup(auth, googleProvider);
 
       setSuccess(true);
-    } catch (err) {
-      setError('Something went wrong');
-    }
+    } catch (err) {}
   };
 
   return (

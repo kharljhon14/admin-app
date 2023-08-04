@@ -5,7 +5,6 @@ import { InputHTMLAttributes, useState } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import Label from './Label';
-import { ZodFirstPartySchemaTypes } from 'zod';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -42,7 +41,7 @@ export default function TextField({
           {...props}
           {...(register ? { ...register(name) } : {})}
           className={cn(
-            `w-full border bg-white px-3 py-2 text-sm focus:outline-none focus-visible:ring-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-offset-2 ${
+            `w-full border  bg-white px-3 py-2 text-sm focus:outline-none focus-visible:ring-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-offset-2 ${
               errorMessage
                 ? 'focus-visible:border-red-500  focus-visible:ring-red-300 border-red-500'
                 : 'focus-visible:border-blue-500  focus-visible:ring-blue-300 border-gray-500'

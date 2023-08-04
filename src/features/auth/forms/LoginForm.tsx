@@ -6,6 +6,7 @@ import TextField from '@/components/TextField';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema, LoginSchemaType } from '@/schemas/login';
+import InlineAlert from '@/components/InlineAlert';
 
 interface Props {
   handleEmailLogin: (email: string, password: string) => Promise<void>;
@@ -20,7 +21,7 @@ export default function LoginForm({ handleEmailLogin, loading, error }: Props) {
     formState: { errors },
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(LoginSchema),
-    mode: 'onChange',
+
     reValidateMode: 'onChange',
   });
 
@@ -29,7 +30,17 @@ export default function LoginForm({ handleEmailLogin, loading, error }: Props) {
   };
 
   return (
-    <div>
+    <div className="space-y-6">
+      {error && (
+        <InlineAlert
+          title="Something went wrong!"
+          variant="destructive"
+          size="full"
+        >
+          {error}
+        </InlineAlert>
+      )}
+
       <form
         className="space-y-4"
         autoComplete="off"

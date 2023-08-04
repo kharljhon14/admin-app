@@ -2,7 +2,7 @@ import { cn } from '@/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { ReactNode } from 'react';
 
-const inlineAlertVariants = cva('border-2 p-6 rounded-md shadow-sm relative', {
+const inlineAlertVariants = cva('border-2 p-3 rounded-md shadow-sm relative text-sm', {
   variants: {
     variant: {
       default: 'border-gray-500 bg-gray-50',
@@ -34,7 +34,7 @@ interface Props extends VariantProps<typeof inlineAlertVariants> {
 export default function InlineAlert({ title, children, className, variant, size }: Props) {
   return (
     <div className={cn(inlineAlertVariants({ variant, size, className }))}>
-      <h1 className="font-bold">{title}</h1>
+      <h1 className="font-semibold">{title}</h1>
       {children}
     </div>
   );
