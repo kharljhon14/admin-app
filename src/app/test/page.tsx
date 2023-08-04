@@ -4,7 +4,7 @@ import Button from '@/components/Button';
 import Label from '@/components/Label';
 import Sheet from '@/components/Sheet';
 import TextField from '@/components/TextField';
-import useSheet from '../hooks/useSheet';
+import useSheet from '../../hooks/useSheet';
 
 export default function TestPage() {
   const { active, showSheet, hideSheet } = useSheet(false);
@@ -30,17 +30,22 @@ export default function TestPage() {
       <div className="space-y-4 flex flex-col items-center justify-center">
         <h2 className="text-center uppercase text-lg text-blue-900 font-semibold">Inputs</h2>
         <div className="flex flex-col items-center justify-center w-1/2 space-y-4">
-          <TextField placeholder="Placeholder" />
+          <TextField
+            placeholder="Placeholder"
+            name={''}
+          />
           <div className="w-full">
             <Label htmlFor="label">With label</Label>
             <TextField
               id="label"
               placeholder="Placeholder"
+              name={''}
             />
           </div>
           <TextField
             disabled
             placeholder="Placeholder"
+            name={''}
           />
         </div>
       </div>

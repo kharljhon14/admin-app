@@ -14,7 +14,7 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(LoginSchema),
-    mode: 'all',
+    mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
