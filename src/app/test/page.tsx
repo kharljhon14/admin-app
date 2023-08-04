@@ -5,6 +5,7 @@ import Label from '@/components/Label';
 import Sheet from '@/components/Sheet';
 import TextField from '@/components/TextField';
 import useSheet from '../../hooks/useSheet';
+import InlineAlert from '@/components/InlineAlert';
 
 export default function TestPage() {
   const { active, showSheet, hideSheet } = useSheet(false);
@@ -30,10 +31,13 @@ export default function TestPage() {
       <div className="space-y-4 flex flex-col items-center justify-center">
         <h2 className="text-center uppercase text-lg text-blue-900 font-semibold">Inputs</h2>
         <div className="flex flex-col items-center justify-center w-1/2 space-y-4">
-          <TextField
-            placeholder="Placeholder"
-            name={''}
-          />
+          <div className="w-full">
+            <TextField
+              placeholder="Placeholder"
+              name={''}
+            />
+          </div>
+
           <div className="w-full">
             <Label htmlFor="label">With label</Label>
             <TextField
@@ -42,11 +46,14 @@ export default function TestPage() {
               name={''}
             />
           </div>
-          <TextField
-            disabled
-            placeholder="Placeholder"
-            name={''}
-          />
+
+          <div className="w-full">
+            <TextField
+              disabled
+              placeholder="Placeholder"
+              name={''}
+            />
+          </div>
         </div>
       </div>
 
@@ -59,6 +66,85 @@ export default function TestPage() {
           active={active}
           hideSheet={hideSheet}
         />
+      </div>
+
+      <div className="w-full px-10 space-y-6">
+        <h2 className="text-center uppercase text-lg text-blue-900 font-semibold">
+          In-line Alerts
+        </h2>
+        <div className="flex items-center justify-center space-x-3">
+          <InlineAlert title="Neutral">
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+          <InlineAlert
+            title="Informative"
+            variant="informative"
+          >
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+          <InlineAlert
+            title="Positive"
+            variant="positive"
+          >
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+          <InlineAlert
+            title="Destructive"
+            variant="destructive"
+          >
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+          <InlineAlert
+            title="Warning"
+            variant="warning"
+          >
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+        </div>
+        <div className="space-y-4">
+          <InlineAlert
+            title="Full Width"
+            size="full"
+          >
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+          <InlineAlert
+            title="Half Width"
+            size="half"
+          >
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+          <InlineAlert
+            title="Large"
+            size="lg"
+          >
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+          <InlineAlert
+            title="Small"
+            size="sm"
+          >
+            <div>
+              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit alias illo</h2>
+            </div>
+          </InlineAlert>
+        </div>
       </div>
     </div>
   );

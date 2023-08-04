@@ -9,9 +9,11 @@ import { LoginSchema, LoginSchemaType } from '@/schemas/login';
 
 interface Props {
   handleEmailLogin: (email: string, password: string) => Promise<void>;
+  loading: boolean;
+  error?: string;
 }
 
-export default function LoginForm({ handleEmailLogin }: Props) {
+export default function LoginForm({ handleEmailLogin, loading, error }: Props) {
   const {
     register,
     handleSubmit,
@@ -38,6 +40,7 @@ export default function LoginForm({ handleEmailLogin }: Props) {
           placeholder="Email"
           register={register}
           errorMessage={errors.email?.message}
+          disabled={loading}
         />
         <TextField
           name="password"
@@ -45,8 +48,15 @@ export default function LoginForm({ handleEmailLogin }: Props) {
           type="password"
           register={register}
           errorMessage={errors.password?.message}
+          disabled={loading}
         />
-        <Button className="uppercase w-full">Login</Button>
+        <Button
+          loading={loading}
+          disabled={loading}
+          className="uppercase w-full"
+        >
+          Login
+        </Button>
       </form>
     </div>
   );

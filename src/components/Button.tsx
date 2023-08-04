@@ -1,6 +1,7 @@
 import { cn } from '@/utils';
 import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -34,15 +35,26 @@ interface Props
     VariantProps<typeof buttonVariants> {
   children?: ReactNode;
   className?: string;
+  loading?: boolean;
 }
 
-export default function Button({ children, className, variant, size, ...props }: Props) {
+export default function Button({ children, className, variant, size, loading, ...props }: Props) {
   return (
     <button
       {...props}
       className={cn(buttonVariants({ variant, size, className }))}
     >
-      {children}
+      {loading ? (
+        <RotatingLines
+          strokeColor="white"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="20"
+          visible={true}
+        />
+      ) : (
+        children
+      )}
     </button>
   );
 }

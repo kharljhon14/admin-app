@@ -1,6 +1,6 @@
 import { cn } from '@/utils';
-import { ReactNode } from 'react';
-
+import { ReactNode, useEffect } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 interface Props {
   title?: string;
   children?: ReactNode;
@@ -9,6 +9,11 @@ interface Props {
 }
 
 export default function Sheet({ title, children, active, hideSheet }: Props) {
+  useEffect(() => {
+    if (active) document.body.style.overflowY = 'hidden';
+    else document.body.style.overflowY = 'visible';
+  }, [active]);
+
   return (
     <>
       <aside
@@ -21,9 +26,9 @@ export default function Sheet({ title, children, active, hideSheet }: Props) {
         <div className="relative h-full w-full">
           <button
             onClick={hideSheet}
-            className="absolute top-2 right-4 text-md"
+            className="absolute top-4 right-4 text-lg"
           >
-            X
+            <AiOutlineClose />
           </button>
 
           <div className="p-6">
@@ -33,8 +38,8 @@ export default function Sheet({ title, children, active, hideSheet }: Props) {
         </div>
       </aside>
       <div
-        className={`fixed  inset-0 backdrop-blur-sm transition-opacity duration-700 bg-black/40 ${
-          active ? 'opacity-100 w-screen h-screen z-40' : 'opacity-0 h-0 w-0'
+        className={`fixed inset-0 backdrop-blur-sm transition-opacity duration-700 bg-black/40 z-40 ${
+          active ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       >
         <button
