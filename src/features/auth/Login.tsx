@@ -5,11 +5,14 @@ import { BsPersonCircle } from 'react-icons/bs';
 import LoginForm from './forms/LoginForm';
 import SocialLoginForm from './forms/SocialLoginForm';
 
+import Cookie from 'js-cookie';
+
 import {
   getAuth,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  getIdToken,
 } from 'firebase/auth';
 import app from '@/services/firebase';
 import { useState } from 'react';
@@ -21,15 +24,17 @@ const googleProvider = new GoogleAuthProvider();
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string>();
 
   const handleEmailLogin = async (email: string, password: string) => {
     try {
       setLoading(true);
-      const user = await signInWithEmailAndPassword(auth, email, password);
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
 
-      setSuccess(true);
+      const token = await getIdToken(user);
+
+      Cookie.set('auth_token', token);
+
       setLoading(false);
     } catch (err: unknown) {
       if (err instanceof FirebaseError) {
@@ -43,8 +48,6 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     try {
       const user = await signInWithPopup(auth, googleProvider);
-
-      setSuccess(true);
     } catch (err) {}
   };
 
