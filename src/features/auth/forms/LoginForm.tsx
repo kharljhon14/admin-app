@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema, LoginSchemaType } from '@/schemas/login';
 import InlineAlert from '@/components/InlineAlert';
+import Link from 'next/link';
 
 interface Props {
   handleEmailLogin: (email: string, password: string) => Promise<void>;
@@ -53,6 +54,7 @@ export default function LoginForm({ handleEmailLogin, loading, error }: Props) {
           errorMessage={errors.email?.message}
           disabled={loading}
         />
+
         <TextField
           name="password"
           placeholder="Password"
@@ -61,6 +63,16 @@ export default function LoginForm({ handleEmailLogin, loading, error }: Props) {
           errorMessage={errors.password?.message}
           disabled={loading}
         />
+
+        <div className="text-sm">
+          <Link
+            className="text-blue-500 hover:underline"
+            href="/auth/register"
+          >
+            Need an account?
+          </Link>
+        </div>
+
         <Button
           loading={loading}
           disabled={loading}

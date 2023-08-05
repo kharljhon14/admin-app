@@ -50,6 +50,7 @@ export default function TextField({
           )}
           type={handleType()}
         />
+
         {type === 'password' && (
           <button
             onClick={() => setShowPassword((prev) => !prev)}

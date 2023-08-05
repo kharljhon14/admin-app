@@ -18,6 +18,7 @@ import app from '@/services/firebase';
 import { useState } from 'react';
 import { FirebaseError } from 'firebase/app';
 import { FIREBASE_USER_NOT_FOUND } from '@/constants';
+import Link from 'next/link';
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
