@@ -1,6 +1,9 @@
 import Card from '@/components/Card';
 import RegisterForm from './forms/RegisterForm';
 import { BsPersonCircle } from 'react-icons/bs';
+import Link from 'next/link';
+
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function Register() {
   return (
@@ -11,6 +14,14 @@ export default function Register() {
           <h1 className="text-xl text-gray-700 font-semibold uppercase">Admin</h1>
         </div>
         <RegisterForm />
+        <div>
+          <Link
+            href="/auth/login"
+            className="text-sm text-blue-500 hover:underline"
+          >
+            Already have an account? Log in instead.
+          </Link>
+        </div>
       </Card>
     </div>
   );
