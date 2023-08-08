@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 import app, { db } from '@/services/firebase';
-import Button from '@/components/Button';
 import { routes } from '@/routes';
 import { RegisterSchemaType } from '@/schemas/register';
 

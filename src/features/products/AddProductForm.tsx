@@ -1,3 +1,8 @@
+'use client';
+
+import Button from '@/components/Button';
+import Checkbox from '@/components/Checkbox';
+import TextArea from '@/components/TextArea';
 import TextField from '@/components/TextField';
 
 export default function AddProductForm() {
@@ -7,11 +12,16 @@ export default function AddProductForm() {
         label="Product Name"
         name="name"
       />
-      <TextField
-        label="Product Name"
-        name="password"
-        type="password"
+      <TextArea
+        label="Product Description"
+        name="description"
       />
+      <Checkbox
+        name="sale"
+        label="On sale"
+      />
+
+      <Button>Add Product</Button>
     </form>
   );
 }
