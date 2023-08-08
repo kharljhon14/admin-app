@@ -2,6 +2,7 @@
 
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
+import Select from '@/components/Select';
 import TextArea from '@/components/TextArea';
 import TextField from '@/components/TextField';
 
@@ -20,6 +21,7 @@ export default function AddProductForm() {
         name="sale"
         label="On sale"
       />
+      <Select />
 
       <Button>Add Product</Button>
     </form>
