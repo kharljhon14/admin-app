@@ -6,7 +6,11 @@ import { RegisterSchema, RegisterSchemaType } from '@/schemas/register';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-export default function RegisterForm() {
+interface Props {
+  handleAddUser: (newUserData: RegisterSchemaType) => Promise<void>;
+}
+
+export default function RegisterForm({ handleAddUser }: Props) {
   const {
     register,
     handleSubmit,
@@ -14,7 +18,7 @@ export default function RegisterForm() {
   } = useForm<RegisterSchemaType>({ resolver: zodResolver(RegisterSchema) });
 
   const onSubmit: SubmitHandler<RegisterSchemaType> = (data) => {
-    console.log(data);
+    handleAddUser(data);
   };
 
   return (

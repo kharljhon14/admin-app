@@ -8,6 +8,7 @@ import Label from './Label';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  label?: string;
   type?: 'text' | 'password' | 'number';
   className?: string;
   register?: UseFormRegister<any>;
@@ -16,6 +17,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 
 export default function TextField({
   name,
+  label,
   type = 'text',
   className,
   register,
@@ -34,7 +36,10 @@ export default function TextField({
   };
 
   return (
-    <div>
+    <div className="space-y-1">
+      <div>
+        <Label htmlFor={name}>{label}</Label>
+      </div>
       <div className="relative flex">
         <input
           id={name}

@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema, LoginSchemaType } from '@/schemas/login';
 import InlineAlert from '@/components/InlineAlert';
 import Link from 'next/link';
+import { routes } from '@/routes';
 
 interface Props {
   handleEmailLogin: (email: string, password: string) => Promise<void>;
@@ -22,7 +23,6 @@ export default function LoginForm({ handleEmailLogin, loading, error }: Props) {
     formState: { errors },
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(LoginSchema),
-
     reValidateMode: 'onChange',
   });
 
@@ -67,7 +67,7 @@ export default function LoginForm({ handleEmailLogin, loading, error }: Props) {
         <div className="text-sm">
           <Link
             className="text-blue-500 hover:underline"
-            href="/auth/register"
+            href={routes.REGISTER}
           >
             Need an account?
           </Link>

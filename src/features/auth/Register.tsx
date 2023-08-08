@@ -9,17 +9,19 @@ import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 import app, { db } from '@/services/firebase';
 import Button from '@/components/Button';
+import { routes } from '@/routes';
+import { RegisterSchemaType } from '@/schemas/register';
 
 const auth = getAuth(app);
 
 export default function Register() {
-  const handleAddUser = async () => {
+  const handleAddUser = async ({ name, email, password }: RegisterSchemaType) => {
     try {
-      const newData = await createUserWithEmailAndPassword(auth, 'Email@mail.com', 'Helloasdasd');
+      const newData = await createUserWithEmailAndPassword(auth, email, password);
 
       const docRef = await addDoc(collection(db, 'users'), {
         id: newData.user.uid,
-        name: 'Kharl ',
+        name,
         email: newData.user.email,
       });
 
@@ -36,17 +38,15 @@ export default function Register() {
           <BsPersonCircle size={68} />
           <h1 className="text-xl text-gray-700 font-semibold uppercase">Admin</h1>
         </div>
-        <RegisterForm />
+        <RegisterForm handleAddUser={handleAddUser} />
         <div>
           <Link
-            href="/auth/login"
+            href={routes.LOGIN}
             className="text-sm text-blue-500 hover:underline"
           >
             Already have an account? Log in instead.
           </Link>
         </div>
-
-        <Button onClick={handleAddUser}>Test Add</Button>
       </Card>
     </div>
   );
