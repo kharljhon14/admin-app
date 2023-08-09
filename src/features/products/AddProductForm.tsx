@@ -2,9 +2,24 @@
 
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
-import Select from '@/components/Select';
+import Select, { SelectValueType } from '@/components/Select';
 import TextArea from '@/components/TextArea';
 import TextField from '@/components/TextField';
+
+const testOptions: SelectValueType[] = [
+  {
+    label: 'Option 1',
+    value: 'O1',
+  },
+  {
+    label: 'Option 2',
+    value: 'O1',
+  },
+  {
+    label: 'Option 3',
+    value: 'O1',
+  },
+];
 
 export default function AddProductForm() {
   return (
@@ -21,7 +36,12 @@ export default function AddProductForm() {
         name="sale"
         label="On sale"
       />
-      <Select />
+      <Select
+        name="test"
+        label="Options"
+        options={testOptions}
+        placeholder="--- Select Option ---"
+      />
 
       <Button>Add Product</Button>
     </form>

@@ -1,50 +1,66 @@
-'use client';
+import { cn } from '@/utils';
+import { SelectHTMLAttributes } from 'react';
 
-import { useState } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+import Label from './Label';
 
-interface Props {}
+export interface SelectValueType {
+  label: string;
+  value: string;
+}
 
-export default function Select() {
-  const [open, setOpen] = useState(false);
+interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
+  name: string;
+  label?: string;
+  placeholder?: string;
+  className?: string;
+  errorMessage?: string;
+  options: SelectValueType[];
+}
 
+export default function Select({
+  name,
+  label,
+  placeholder,
+  className,
+  errorMessage,
+  options,
+  ...props
+}: Props) {
   return (
     <div className="space-y-2">
-      <button
-        type="button"
-        className="w-full border relative border-gray-500 rounded-md px-3 py-2 text-left"
-        onClick={() => setOpen((prev) => !prev)}
+      <Label htmlFor={name}>{label}</Label>
+      <select
+        {...props}
+        id={name}
+        name={name}
+        defaultValue={undefined}
+        className={cn(
+          `w-full border bg-white px-3 py-2 text-sm focus:outline-none focus-visible:ring-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-offset-2 ${
+            errorMessage
+              ? 'focus-visible:border-red-500  focus-visible:ring-red-300 border-red-500'
+              : 'focus-visible:border-blue-500  focus-visible:ring-blue-300 border-gray-500'
+          }`,
+          className
+        )}
       >
-        <span>Options</span>
+        {placeholder && (
+          <option
+            className="hidden"
+            value={undefined}
+          >
+            {placeholder}
+          </option>
+        )}
 
-        <div
-          className={`absolute flex justify-center items-center right-2 top-1/2 transform -translate-y-1/2 transition-all duration-300 text-gray-500 ${
-            open ? 'rotate-180' : 'rotate-0'
-          }`}
-        >
-          <FiChevronDown size={22} />
-        </div>
-      </button>
-
-      <ul
-        className={`absolute bg-white w-full rounded-md overflow-hidden transition-all duration-300 overflow-y-auto ${
-          open ? 'border border-gray-500' : 'border-none'
-        }`}
-        style={{
-          maxHeight: open ? '180px' : '0', // Adjust the max height as needed
-          transition: 'max-height 0.3s ease-in-out', // Adjust the duration and easing as needed
-        }}
-      >
-        <li className="border-b border-gray-400 px-3 py-2 last:border-b-0 hover:bg-gray-200">
-          <button className="w-full text-left">Option 1</button>
-        </li>
-        <li className="border-b border-gray-400 px-3 py-2 last:border-b-0 hover:bg-gray-200">
-          <button className="w-full text-left">Option 2</button>
-        </li>
-        <li className="border-b border-gray-400 px-3 py-2 last:border-b-0 hover:bg-gray-200">
-          <button className="w-full text-left">Option 3</button>
-        </li>
-      </ul>
+        {options.map(({ value, label }) => (
+          <option
+            key={value}
+            value={value}
+          >
+            {label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
