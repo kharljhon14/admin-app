@@ -1,3 +1,4 @@
+import BrandList from '@/features/brands/BrandList';
 import AddProductForm from '@/features/products/AddProductForm';
 import Image from 'next/image';
 
@@ -6,7 +7,8 @@ export default function Home() {
     <main>
       <div>
         <h1>Home</h1>
-        <AddProductForm />
+
+        <BrandList />
       </div>
     </main>
   );

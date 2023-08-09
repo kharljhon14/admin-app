@@ -36,12 +36,6 @@ export default function AddProductForm() {
         name="sale"
         label="On sale"
       />
-      <Select
-        name="test"
-        label="Options"
-        options={testOptions}
-        placeholder="--- Select Option ---"
-      />
 
       <Button>Add Product</Button>
     </form>
