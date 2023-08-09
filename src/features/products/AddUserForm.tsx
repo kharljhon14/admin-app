@@ -21,7 +21,7 @@ const testOptions: SelectValueType[] = [
   },
 ];
 
-export default function AddProductForm() {
+export default function AddUserForm() {
   return (
     <form action="">
       <TextField

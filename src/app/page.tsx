@@ -1,5 +1,5 @@
-import AddProductForm from '@/features/products/AddProductForm';
-import ProductGrid from '@/features/products/ProductGrid';
+import AddProductForm from '@/features/products/AddUserForm';
+import UsersGrid from '@/features/products/UsersGrid';
 import Image from 'next/image';
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
     <main>
       <div className="mx-10">
         <h1>Home</h1>
-        <ProductGrid />
+        <UsersGrid />
       </div>
     </main>
   );
