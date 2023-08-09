@@ -1,14 +1,13 @@
-import BrandList from '@/features/brands/BrandList';
 import AddProductForm from '@/features/products/AddProductForm';
+import ProductGrid from '@/features/products/ProductGrid';
 import Image from 'next/image';
 
 export default function Home() {
   return (
     <main>
-      <div>
+      <div className="mx-10">
         <h1>Home</h1>
-
-        <BrandList />
+        <ProductGrid />
       </div>
     </main>
   );
