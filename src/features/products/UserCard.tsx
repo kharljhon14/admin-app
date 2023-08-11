@@ -1,7 +1,5 @@
-import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Chip from '@/components/Chip';
-import Image from 'next/image';
 
 export default function UserCard() {
   return (
