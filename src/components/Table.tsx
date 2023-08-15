@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 
-export default function Table() {
-  const data = [
-    { subject: 'English', year: 'First', actions: 'Actions' },
-    { subject: 'Math', year: 'Second', actions: 'Actions' },
-    { subject: 'Science', year: 'Third', actions: 'Actions' },
-    { subject: 'History', year: 'Fourth', actions: 'Actions' },
-    { subject: 'History', year: 'Fourth', actions: 'Actions' },
-    { subject: 'History', year: 'Fourth', actions: 'Actions' },
-  ];
+export interface Column {
+  title: string;
+  render?: (data: { [key: string]: string | number | ReactNode }[]) => ReactNode;
+}
 
+interface Props {
+  columns: Column[];
+  data: { [key: string]: string | number | ReactNode }[];
+}
+
+export default function Table({ columns, data }: Props) {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -32,14 +33,43 @@ export default function Table() {
     }
   };
 
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedData = data.slice(startIndex, endIndex);
+
   return (
-    <div>
-      <table className="table table-fixed w-full border-collapse border m-9 rounded-lg overflow-hidden">
-        {/* ... Your table header ... */}
-        <tbody>{/* ... Your table body ... */}</tbody>
-      </table>
+    <div className="space-y-5">
+      <div className="overflow-x-auto">
+        <table className="table table-fixed w-full border-collapse border min-w-[40rem]">
+          <thead className="bg-gray-300">
+            <tr>
+              {columns.map((column) => (
+                <th
+                  key={column.title}
+                  className="border px-4 py-2"
+                >
+                  {column.title}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {displayedData.map((item, index) => (
+              <tr
+                key={index}
+                className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
+              >
+                <td className="border px-4 py-2">{item.subject}</td>
+                <td className="border px-4 py-2">{item.year}</td>
+                <td className="border px-4 py-2">{item.actions}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       {data.length > itemsPerPage && (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}

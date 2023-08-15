@@ -2,7 +2,7 @@
 
 import Button from '@/components/Button';
 import Dialog from '@/components/Dialog';
-import Table from '@/components/Table';
+import Table, { Column } from '@/components/Table';
 
 import UsersGrid from '@/features/products/UsersGrid';
 import useDialog from '@/hooks/useDialog';
@@ -11,6 +11,55 @@ import { AiOutlinePlus } from 'react-icons/ai';
 
 export default function Home() {
   const { active, showDialog, hideDialog } = useDialog(false);
+
+  const columns: Column[] = [
+    {
+      title: 'Subject',
+    },
+    {
+      title: 'Year',
+    },
+    {
+      title: 'Students',
+    },
+    {
+      title: 'Actions',
+    },
+  ];
+
+  const data = [
+    {
+      subject: 'Math',
+      year: 'First',
+      students: 40,
+      actions: 'actions',
+    },
+    {
+      subject: 'Math',
+      year: 'First',
+      students: 40,
+      actions: 'actions',
+    },
+    {
+      subject: 'Math',
+      year: 'First',
+      students: 40,
+      actions: 'actions',
+    },
+    {
+      subject: 'Math',
+      year: 'First',
+      students: 40,
+      actions: 'actions',
+    },
+    {
+      subject: 'Math',
+      year: 'First',
+      students: 40,
+      actions: 'actions',
+    },
+  ];
+
   return (
     <main>
       <div className="mx-10">
@@ -35,7 +84,10 @@ export default function Home() {
           </p>
         </Dialog>
       </div>
-      <Table />
+      <Table
+        data={data}
+        columns={columns}
+      />
     </main>
   );
 }
