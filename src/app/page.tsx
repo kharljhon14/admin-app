@@ -2,6 +2,7 @@
 
 import Button from '@/components/Button';
 import Dialog from '@/components/Dialog';
+import Table from '@/components/Table';
 
 import UsersGrid from '@/features/products/UsersGrid';
 import useDialog from '@/hooks/useDialog';
@@ -34,6 +35,7 @@ export default function Home() {
           </p>
         </Dialog>
       </div>
+      <Table />
     </main>
   );
 }
