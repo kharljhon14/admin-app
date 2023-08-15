@@ -9,8 +9,8 @@ export default function UserCard() {
         <h1 className="flex-1 font-semibold text-md">Kharl Jhon Rhane Enriquez</h1>
       </div>
       <div className="flex space-x-3">
-        <Chip />
-        <Chip />
+        <Chip>Teacher</Chip>
+        <Chip>Student</Chip>
       </div>
     </Card>
   );

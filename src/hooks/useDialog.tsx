@@ -2,25 +2,25 @@
 
 import { useState } from 'react';
 
-export default function useSheet(state: boolean) {
+export default function useDialog(state: boolean) {
   const [active, setActive] = useState(state);
 
-  const showSheet = () => {
+  const showDialog = () => {
     setActive(true);
   };
 
-  const hideSheet = () => {
+  const hideDialog = () => {
     setActive(false);
   };
 
-  const toggleSheet = () => {
+  const toggleDialog = () => {
     setActive((prevActive) => !prevActive);
   };
 
   return {
     active,
-    showSheet,
-    hideSheet,
-    toggleSheet,
+    showDialog,
+    hideDialog,
+    toggleDialog,
   };
 }

@@ -1,5 +1,6 @@
 import { cn } from '@/utils';
 import { VariantProps, cva } from 'class-variance-authority';
+import { ReactNode } from 'react';
 
 const chipVariants = cva('text-sm rounded-xl px-3 text-white font-medium', {
   variants: {
@@ -17,12 +18,14 @@ const chipVariants = cva('text-sm rounded-xl px-3 text-white font-medium', {
   },
 });
 
-interface Props extends VariantProps<typeof chipVariants> {}
+interface Props extends VariantProps<typeof chipVariants> {
+  children?: ReactNode;
+}
 
-export default function Chip({ variant }: Props) {
+export default function Chip({ children, variant }: Props) {
   return (
     <div className={cn(chipVariants({ variant }))}>
-      <span>Developer</span>
+      <span>{children}</span>
     </div>
   );
 }
