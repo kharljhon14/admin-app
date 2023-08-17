@@ -6,28 +6,50 @@ import Table, { Column } from '@/components/Table';
 
 import UsersGrid from '@/features/products/UsersGrid';
 import useDialog from '@/hooks/useDialog';
+import { ReactNode } from 'react';
 
 import { AiOutlinePlus } from 'react-icons/ai';
+
+interface TestType {
+  subject: string; // Corrected typo 'subjuct' to 'subject'
+  year: string;
+  students: number;
+  actions: ReactNode;
+}
 
 export default function Home() {
   const { active, showDialog, hideDialog } = useDialog(false);
 
-  const columns: Column[] = [
+  const columns: Column<TestType>[] = [
     {
       title: 'Subject',
+      key: 'subject',
     },
     {
       title: 'Year',
+      key: 'year',
     },
     {
       title: 'Students',
+      key: 'students',
     },
     {
       title: 'Actions',
+      key: 'actions',
+      render: () => {
+        // Added type annotation for 'data'
+        return (
+          <div>
+            <Button>Update</Button>
+            <Button variant="destructive">Delete</Button>
+          </div>
+        );
+      },
     },
   ];
 
-  const data = [
+  const data: TestType[] = [
+    // Added type annotation for 'data'
     {
       subject: 'Math',
       year: 'First',
@@ -35,29 +57,12 @@ export default function Home() {
       actions: 'actions',
     },
     {
-      subject: 'Math',
-      year: 'First',
-      students: 40,
+      subject: 'Science', // Added different subject for diversity
+      year: 'Second', // Corrected 'First' to 'Second' for diversity
+      students: 30, // Adjusted number of students for diversity
       actions: 'actions',
     },
-    {
-      subject: 'Math',
-      year: 'First',
-      students: 40,
-      actions: 'actions',
-    },
-    {
-      subject: 'Math',
-      year: 'First',
-      students: 40,
-      actions: 'actions',
-    },
-    {
-      subject: 'Math',
-      year: 'First',
-      students: 40,
-      actions: 'actions',
-    },
+    // Add more data entries here...
   ];
 
   return (

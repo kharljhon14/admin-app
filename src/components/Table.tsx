@@ -1,16 +1,17 @@
 import React, { ReactNode, useState } from 'react';
 
-export interface Column {
+export interface Column<T> {
   title: string;
-  render?: (data: { [key: string]: string | number | ReactNode }[]) => ReactNode;
+  key: string;
+  render?: (data: T) => ReactNode;
 }
 
-interface Props {
-  columns: Column[];
-  data: { [key: string]: string | number | ReactNode }[];
+interface Props<T> {
+  columns: Column<T>[];
+  data: T[];
 }
 
-export default function Table({ columns, data }: Props) {
+export default function Table<T>({ columns, data }: Props<T>) {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -54,14 +55,19 @@ export default function Table({ columns, data }: Props) {
             </tr>
           </thead>
           <tbody>
-            {displayedData.map((item, index) => (
+            {displayedData.map((item: any, index) => (
               <tr
                 key={index}
                 className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
               >
-                <td className="border px-4 py-2">{item.subject}</td>
-                <td className="border px-4 py-2">{item.year}</td>
-                <td className="border px-4 py-2">{item.actions}</td>
+                {columns.map(({ key, render }) => (
+                  <td
+                    key={key}
+                    className="border px-4 py-2"
+                  >
+                    {render ? render(item) : item[key as keyof typeof item]}
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>
