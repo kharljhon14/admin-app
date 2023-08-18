@@ -1,7 +1,9 @@
-import Button from '@/components/Button';
-
-import { AiOutlinePlus } from 'react-icons/ai';
+import AddSubjectForm from '@/features/forms/AddSubjectForm';
 
 export default function Home() {
-  return <main></main>;
+  return (
+    <main>
+      <AddSubjectForm />
+    </main>
+  );
 }
