@@ -1,6 +1,6 @@
 import { cn } from '@/utils';
 import { VariantProps, cva } from 'class-variance-authority';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 
 const dialogVariants = cva('fixed inset-0 flex p-10', {
@@ -36,6 +36,18 @@ export default function Dialog({
   hideDialog,
   position,
 }: Props) {
+  const [active, setActive] = useState(open);
+
+  useEffect(() => {
+    const delay = open ? 0 : 300;
+
+    const timer = setTimeout(() => {
+      setActive(open);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [open]);
+
   return (
     <div
       className={cn(
@@ -43,11 +55,11 @@ export default function Dialog({
         dialogVariants({ position })
       )}
     >
-      {open && (
+      {active && (
         <div
           role="dialog"
           className={`border px-4 pb-4 py-8 rounded-lg relative z-50 bg-white shadow-md max-w-lg min-w-[32rem] transition-all duration-300 ease-in-out ${
-            open ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            open ? 'opacity-100' : 'opacity-0 pointer-events-none '
           }`}
         >
           <button

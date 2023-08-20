@@ -55,21 +55,32 @@ export default function Table<T>({ columns, data }: Props<T>) {
             </tr>
           </thead>
           <tbody>
-            {displayedData.map((item: any, index) => (
-              <tr
-                key={index}
-                className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
-              >
-                {columns.map(({ key, render }) => (
-                  <td
-                    key={key}
-                    className="border px-4 py-2"
-                  >
-                    {render ? render(item) : item[key as keyof typeof item]}
-                  </td>
-                ))}
+            {data.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="text-center py-4 h-96"
+                >
+                  <p className="text-gray-500 font-semibold uppercase">No items to display</p>
+                </td>
               </tr>
-            ))}
+            ) : (
+              displayedData.map((item: any, index) => (
+                <tr
+                  key={index}
+                  className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
+                >
+                  {columns.map(({ key, render }) => (
+                    <td
+                      key={key}
+                      className="border px-4 py-2"
+                    >
+                      {render ? render(item) : item[key as keyof typeof item]}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
