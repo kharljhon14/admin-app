@@ -9,7 +9,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/services/firebase';
-import { useId } from 'react';
 
 export default function SubjectForm() {
   const {
@@ -20,9 +19,15 @@ export default function SubjectForm() {
 
   const submitForm: SubmitHandler<SubjectSchemaType> = async (data) => {
     const id = crypto.randomUUID();
-
+    const now = Date.now();
     try {
-      await setDoc(doc(db, 'subjects', id), { name: data.name, description: data.description });
+      await setDoc(doc(db, 'subjects', data.name), {
+        name: data.name,
+        description: data.description,
+        createdAt: now,
+        modifiedAt: now,
+        id,
+      });
     } catch (err) {
       console.log(err);
     }
