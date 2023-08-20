@@ -25,10 +25,17 @@ const dialogVariants = cva('fixed inset-0 flex p-10', {
 interface Props extends VariantProps<typeof dialogVariants> {
   children?: ReactNode;
   open: boolean;
+  overlayClose?: boolean;
   hideDialog: () => void;
 }
 
-export default function Dialog({ children, open, hideDialog, position }: Props) {
+export default function Dialog({
+  children,
+  open,
+  overlayClose = true,
+  hideDialog,
+  position,
+}: Props) {
   return (
     <div
       className={cn(
@@ -36,28 +43,31 @@ export default function Dialog({ children, open, hideDialog, position }: Props) 
         dialogVariants({ position })
       )}
     >
-      <div
-        role="dialog"
-        className={`border px-4 pb-4 py-8 rounded-lg relative z-50 bg-white shadow-md max-w-lg min-w-[32rem] transition-all duration-300 ease-in-out ${
-          open ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        <button
-          onClick={hideDialog}
-          className="absolute top-2 right-2 text-2xl"
+      {open && (
+        <div
+          role="dialog"
+          className={`border px-4 pb-4 py-8 rounded-lg relative z-50 bg-white shadow-md max-w-lg min-w-[32rem] transition-all duration-300 ease-in-out ${
+            open ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
         >
-          <IoCloseOutline />
-        </button>
-        {children}
-      </div>
+          <button
+            onClick={hideDialog}
+            className="absolute top-2 right-2 text-2xl"
+          >
+            <IoCloseOutline />
+          </button>
+
+          {children}
+        </div>
+      )}
 
       <div
-        className={`fixed inset-0 backdrop-blur-sm transition-opacity duration-500 bg-black/40 z-40 ${
+        className={`fixed inset-0 backdrop-blur-sm transition-opacity duration-300 bg-black/40 z-40 ${
           open ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       >
         <button
-          onClick={hideDialog}
+          onClick={overlayClose ? hideDialog : () => {}}
           className="w-full h-full cursor-default"
         ></button>
       </div>
