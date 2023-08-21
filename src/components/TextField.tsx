@@ -13,6 +13,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   register?: UseFormRegister<any>;
   errorMessage?: string;
+  showRequiredTag?: boolean;
 }
 
 export default function TextField({
@@ -22,6 +23,7 @@ export default function TextField({
   className,
   register,
   errorMessage,
+  showRequiredTag = true,
   ...props
 }: Props) {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +40,7 @@ export default function TextField({
   return (
     <div className="space-y-1">
       <div>
-        <Label htmlFor={name}>{label}</Label>
+        <Label htmlFor={name}>{showRequiredTag ? `${label} *` : label}</Label>
       </div>
       <div className="relative flex">
         <input

@@ -9,19 +9,30 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/services/firebase';
+import { toast } from 'react-toastify';
+import { Subject } from '@/types/subject';
+import { useEffect } from 'react';
 
-export default function SubjectForm() {
+interface Props {
+  hideDialog: () => void;
+  subject?: Subject;
+}
+
+export default function SubjectForm({ hideDialog, subject }: Props) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<SubjectSchemaType>({ resolver: zodResolver(SubjectSchema) });
 
-  const submitForm: SubmitHandler<SubjectSchemaType> = async (data) => {
+  const handleAddSubject = async (data: SubjectSchemaType) => {
     const id = crypto.randomUUID();
     const now = Date.now();
     try {
-      await setDoc(doc(db, 'subjects', data.name), {
+      toast.success('Successfully Added Subject!');
+      hideDialog();
+      await setDoc(doc(db, 'subjects', id), {
         name: data.name,
         description: data.description,
         createdAt: now,
@@ -29,9 +40,40 @@ export default function SubjectForm() {
         id,
       });
     } catch (err) {
-      console.log(err);
+      toast.error('Something went wrong try again later!');
     }
   };
+
+  const handleUpdateSubject = async (data: SubjectSchemaType) => {
+    const now = Date.now();
+    if (subject) {
+      try {
+        toast.success('Successfully Updated Subject!');
+        hideDialog();
+        await setDoc(doc(db, 'subjects', subject.id), {
+          ...subject,
+          name: data.name,
+          description: data.description,
+          modifiedAt: now,
+        });
+      } catch (err) {
+        toast.error('Something went wrong try again later!');
+      }
+    }
+  };
+
+  const submitForm: SubmitHandler<SubjectSchemaType> = async (data) => {
+    if (subject) {
+      handleUpdateSubject(data);
+    } else {
+      handleAddSubject(data);
+    }
+  };
+
+  useEffect(() => {
+    if (subject) reset(subject);
+  }, [reset, subject]);
+
   return (
     <form
       onSubmit={handleSubmit(submitForm)}
@@ -50,8 +92,9 @@ export default function SubjectForm() {
         name="description"
         register={register}
         errorMessage={errors.description?.message}
+        rows={10}
       />
-      <Button className="w-full">Add Subject</Button>
+      <Button className="w-full">{`${subject ? 'Update Subject' : 'Add Subject'}`}</Button>
     </form>
   );
 }

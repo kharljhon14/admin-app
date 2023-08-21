@@ -9,6 +9,7 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
   register?: UseFormRegister<any>;
   errorMessage?: string;
+  showRequiredTag?: boolean;
 }
 
 export default function TextArea({
@@ -17,11 +18,12 @@ export default function TextArea({
   className,
   register,
   errorMessage,
+  showRequiredTag = true,
   ...props
 }: Props) {
   return (
     <div>
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={name}>{showRequiredTag ? `${label} *` : label}</Label>
       <textarea
         id={name}
         {...props}

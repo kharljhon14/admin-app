@@ -58,7 +58,7 @@ export default function Dialog({
       {active && (
         <div
           role="dialog"
-          className={`border px-4 pb-4 py-8 rounded-lg relative z-50 bg-white shadow-md max-w-lg min-w-[32rem] transition-all duration-300 ease-in-out ${
+          className={`border px-4 pb-4 py-8 rounded-lg relative z-50 bg-white shadow-md max-w-lg md:min-w-[32rem] min-w-full transition-all duration-300 ease-in-out ${
             open ? 'opacity-100' : 'opacity-0 pointer-events-none '
           }`}
         >
