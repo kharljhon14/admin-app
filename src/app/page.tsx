@@ -1,9 +1,7 @@
-import Subjects from '@/features/subjects/Subjects';
-
 export default function Home() {
   return (
     <main>
-      <Subjects />
+      <h1>Home</h1>
     </main>
   );
 }

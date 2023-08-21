@@ -2,7 +2,7 @@
 
 import { cn } from '@/utils';
 import { InputHTMLAttributes, useState } from 'react';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import Label from './Label';
 
@@ -40,7 +40,7 @@ export default function TextField({
   return (
     <div className="space-y-1">
       <div>
-        <Label htmlFor={name}>{showRequiredTag ? `${label} *` : label}</Label>
+        <Label htmlFor={name}>{showRequiredTag && label ? `${label} *` : label}</Label>
       </div>
       <div className="relative flex">
         <input

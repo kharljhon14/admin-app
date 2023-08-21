@@ -1,72 +1,75 @@
+'use client';
+
 import Link from 'next/link';
-import React from 'react';
+
 import { IoSchoolSharp } from 'react-icons/io5';
 import { FaChalkboardTeacher, FaSchool } from 'react-icons/fa';
 import { MdGroups, MdOutlineLogin } from 'react-icons/md';
 import { PiBooksFill } from 'react-icons/pi';
+import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
 
-export default function SideNav() {
+interface Props {
+  open: boolean;
+  setOpen: () => void;
+}
+
+export default function SideNav({ open, setOpen }: Props) {
   return (
-    <aside className="fixed bg-white w-full md:w-80 h-full shadow-lg border p-5">
+    <aside
+      className={`fixed bg-white h-full shadow-lg border ${
+        open ? 'md:w-80 p-5 full w-full' : 'md:w-20 p-4'
+      }`}
+    >
       <div className="flex items-center justify-center space-x-3 mb-6">
-        <IoSchoolSharp
-          className="text-indigo-600"
-          size={34}
-        />
-        <h1 className="text-2xl font-semibold text-indigo-600">Academia</h1>
+        <IoSchoolSharp size={34} />
+        {open && <h1 className="text-2xl font-semibold ">Academia</h1>}
       </div>
       <nav className="space-y-3">
         <Link
           href="/"
-          className="flex items-center justify-center bg-indigo-50 p-2 rounded-md space-x-3 transition-colors duration-300 hover:text-indigo-600"
+          className="flex items-center justify-center bg-gray-100 p-2 rounded-md space-x-3 transition-colors duration-300 hover:bg-gray-200"
         >
-          <FaChalkboardTeacher
-            className="text-indigo-600"
-            size={30}
-          />
-          <span className="text-lg text-indigo-600 font-semibold">Teachers</span>
+          <FaChalkboardTeacher size={30} />
+          {open && <span className="text-lg font-semibold">Teachers</span>}
         </Link>
         <Link
           href="/"
-          className="flex items-center justify-center space-x-3 transition-colors bg-indigo-50 p-2 rounded-md duration-300 hover:text-indigo-600"
+          className="flex items-center justify-center bg-gray-100 p-2 rounded-md space-x-3 transition-colors duration-300 hover:bg-gray-200"
         >
-          <MdGroups
-            className="text-indigo-600"
-            size={30}
-          />
-          <span className="text-lg text-indigo-600 font-semibold">Students</span>
+          <MdGroups size={30} />
+          {open && <span className="text-lg font-semibold">Students</span>}
+        </Link>
+        <Link
+          href="/subjects"
+          className="flex items-center justify-center bg-gray-100 p-2 rounded-md space-x-3 transition-colors duration-300 hover:bg-gray-200"
+        >
+          <PiBooksFill size={30} />
+          {open && <span className="text-lg  font-semibold">Subjects</span>}
         </Link>
         <Link
           href="/"
-          className="flex items-center justify-center space-x-3 transition-colors bg-indigo-50 p-2 rounded-md duration-300 hover:text-indigo-600"
+          className="flex items-center justify-center bg-gray-100 p-2 rounded-md space-x-3 transition-colors duration-300 hover:bg-gray-200"
         >
-          <PiBooksFill
-            className="text-indigo-600"
-            size={30}
-          />
-          <span className="text-lg text-indigo-600 font-semibold">Subjects</span>
+          <FaSchool size={30} />
+
+          {open && <span className="text-lg font-semibold">Sections</span>}
         </Link>
         <Link
           href="/"
-          className="flex items-center justify-center space-x-3 transition-colors bg-indigo-50 p-2 rounded-md duration-300 hover:text-indigo-600"
+          className="flex items-center justify-center bg-gray-100 p-2 rounded-md space-x-3 transition-colors duration-300 hover:bg-gray-200"
         >
-          <FaSchool
-            className="text-indigo-600"
-            size={30}
-          />
-          <span className="text-lg text-indigo-600 font-semibold">Sections</span>
-        </Link>
-        <Link
-          href="/"
-          className="flex items-center justify-center space-x-3 transition-colors bg-indigo-50 p-2 rounded-md duration-300 hover:text-indigo-600"
-        >
-          <MdOutlineLogin
-            className="text-indigo-600"
-            size={30}
-          />
-          <span className="text-lg text-indigo-600 font-semibold">Sign in</span>
+          <MdOutlineLogin size={30} />
+          {open && <span className="text-lg font-semibold">Sign in</span>}
         </Link>
       </nav>
+      <div className="absolute bottom-4 right-4">
+        <button
+          onClick={setOpen}
+          className="bg-gray-100 hover:bg-gray-200 p-2 rounded-full shadow-md"
+        >
+          {open ? <AiOutlineMenuFold size={22} /> : <AiOutlineMenuUnfold size={22} />}
+        </button>
+      </div>
     </aside>
   );
 }
