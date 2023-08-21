@@ -41,13 +41,13 @@ export default function Table<T>({ columns, data }: Props<T>) {
   return (
     <div className="space-y-5">
       <div className="overflow-x-auto">
-        <table className="table table-fixed w-full border-collapse border min-w-[40rem]">
-          <thead className="bg-gray-300">
+        <table className="table table-fixed w-full border-collapse border min-w-[40rem] rounded-lg">
+          <thead className="bg-gray-300 rounded-lg">
             <tr>
               {columns.map((column) => (
                 <th
                   key={column.title}
-                  className="border px-4 py-2"
+                  className="border border-slate-400 px-4 py-2"
                 >
                   {column.title}
                 </th>
@@ -73,7 +73,7 @@ export default function Table<T>({ columns, data }: Props<T>) {
                   {columns.map(({ key, render }) => (
                     <td
                       key={key}
-                      className="border px-4 py-2"
+                      className="border border-slate-400 px-4 py-2"
                     >
                       {render ? render(item) : item[key as keyof typeof item]}
                     </td>

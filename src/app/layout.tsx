@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import type { Metadata } from 'next';
+import SideNav from '@/features/navigations/SideNav';
 
 export const metadata: Metadata = {
   title: 'Admin App',
@@ -14,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <ToastContainer
-          position="top-right"
+          position="bottom-right"
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
@@ -25,7 +26,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           pauseOnHover
           theme="colored"
         />
-        {children}
+        <div className="w-full">
+          <SideNav />
+          <div className="p-5 md:ml-80">{children}</div>
+        </div>
       </body>
     </html>
   );
