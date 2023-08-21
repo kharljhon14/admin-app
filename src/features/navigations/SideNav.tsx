@@ -16,7 +16,7 @@ interface Props {
 export default function SideNav({ open, setOpen }: Props) {
   return (
     <aside
-      className={`fixed bg-white h-full shadow-lg border ${
+      className={`fixed bg-white h-full shadow-lg border z-30  ${
         open ? 'md:w-80 p-5 full w-full' : 'md:w-20 p-4'
       }`}
     >

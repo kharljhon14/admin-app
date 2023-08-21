@@ -43,7 +43,7 @@ export default function SubjectList({ setSubject, showDialog, subject }: Props) 
   };
 
   const subscribeToData = () => {
-    const q = query(collection(db, 'subjects'), orderBy('createdAt'));
+    const q = query(collection(db, 'subjects'), orderBy('createdAt', 'desc'));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const updatedData = snapshot.docs.map((doc) => doc.data()) as Subject[];

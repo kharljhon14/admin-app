@@ -51,7 +51,7 @@ export default function Dialog({
   return (
     <div
       className={cn(
-        `${open ? 'block' : 'hidden pointer-events-none'}`,
+        `${open ? 'block ' : 'hidden pointer-events-none'} z-50 `,
         dialogVariants({ position })
       )}
     >

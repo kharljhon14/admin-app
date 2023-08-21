@@ -9,10 +9,10 @@ export interface Column<T> {
 interface Props<T> {
   columns: Column<T>[];
   data: T[];
+  itemsPerPage?: number;
 }
 
-export default function Table<T>({ columns, data }: Props<T>) {
-  const itemsPerPage = 5;
+export default function Table<T>({ columns, data, itemsPerPage = 10 }: Props<T>) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
