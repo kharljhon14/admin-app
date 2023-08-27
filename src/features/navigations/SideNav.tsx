@@ -55,7 +55,7 @@ export default function SideNav({ open, setOpen }: Props) {
           {open && <span className="text-lg font-semibold">Sections</span>}
         </Link>
         <Link
-          href="/"
+          href="/auth/login"
           className="flex items-center justify-center bg-gray-100 p-2 rounded-md space-x-3 transition-colors duration-300 hover:bg-gray-200"
         >
           <MdOutlineLogin size={30} />

@@ -6,7 +6,18 @@ import Table, { Column } from '@/components/Table';
 import useDialog from '@/hooks/useDialog';
 import { db } from '@/services/firebase';
 import { Subject } from '@/types/subject';
-import { deleteDoc, doc, query, collection, orderBy, onSnapshot } from 'firebase/firestore';
+import {
+  deleteDoc,
+  doc,
+  query,
+  collection,
+  orderBy,
+  onSnapshot,
+  getCountFromServer,
+  limit,
+  getDocs,
+  startAfter,
+} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -19,6 +30,7 @@ interface Props {
 export default function SubjectList({ setSubject, showDialog, subject }: Props) {
   const { active, showDialog: showDeleteDialog, hideDialog } = useDialog(false);
   const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
 
   const handleDeleteDialog = (selectedSubject: Subject) => {
     showDeleteDialog();
@@ -42,24 +54,30 @@ export default function SubjectList({ setSubject, showDialog, subject }: Props) 
     setSubject(subject);
   };
 
-  const subscribeToData = () => {
-    const q = query(collection(db, 'subjects'), orderBy('createdAt', 'desc'));
+  const subscribeToData = async () => {
+    const subjects = collection(db, 'subjects');
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const updatedData = snapshot.docs.map((doc) => doc.data()) as Subject[];
-      setSubjects(updatedData);
+    const q = query(subjects, orderBy('createdAt', 'desc'), limit(15));
+    const documentSnapshots = await getDocs(q);
+    const unsubscribe = onSnapshot(q, (snap) => {
+      setSubjects(snap.docs.map((d) => d.data()) as Subject[]);
     });
 
-    // Return the unsubscribe function to clean up the listener when the component unmounts
+    const last = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+
+    const next = query(subjects, orderBy('createdAt', 'desc'), startAfter(last), limit(10));
+
+    const nextSnapshot = await getDocs(next);
+
+    const snapshot = await getCountFromServer(subjects);
+
+    setTotalItems(snapshot.data().count);
+
     return unsubscribe;
   };
 
   useEffect(() => {
-    const unsubscribe = subscribeToData();
-
-    return () => {
-      unsubscribe(); // Unsubscribe when the component unmounts
-    };
+    subscribeToData();
   }, []);
 
   const columns: Column<Subject>[] = [
@@ -95,6 +113,8 @@ export default function SubjectList({ setSubject, showDialog, subject }: Props) 
       <Table
         columns={columns}
         data={subjects}
+        itemsPerPage={15}
+        totalItems={totalItems}
       />
 
       <Dialog

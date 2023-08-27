@@ -9,13 +9,14 @@ export interface Column<T> {
 interface Props<T> {
   columns: Column<T>[];
   data: T[];
+  totalItems: number;
   itemsPerPage?: number;
 }
 
-export default function Table<T>({ columns, data, itemsPerPage = 10 }: Props<T>) {
+export default function Table<T>({ columns, data, totalItems, itemsPerPage = 10 }: Props<T>) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
   const pageNumbersToShow = 5; // Number of page numbers to display in pagination bar
   const halfPageNumbersToShow = Math.floor(pageNumbersToShow / 2);
   const visiblePageNumbers = [];
@@ -41,9 +42,14 @@ export default function Table<T>({ columns, data, itemsPerPage = 10 }: Props<T>)
   return (
     <div className="space-y-5">
       <div className="overflow-x-auto">
-        <table className="table table-fixed w-full border-collapse border min-w-[40rem] rounded-lg">
+        <table className="table table-auto w-full border-collapse border min-w-[40rem] rounded-lg">
           <thead className="bg-gray-300 rounded-lg">
             <tr>
+              {/* <th className="border border-slate-400 px-4 py-2">
+                <div className="mx-auto flex items-center justify-center">
+                  <input type="checkbox" />
+                </div>
+              </th> */}
               {columns.map((column) => (
                 <th
                   key={column.title}
@@ -70,6 +76,11 @@ export default function Table<T>({ columns, data, itemsPerPage = 10 }: Props<T>)
                   key={index}
                   className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
                 >
+                  {/* <td className="border border-slate-400 px-4 py-2">
+                    <div className="mx-auto flex items-center justify-center">
+                      <input type="checkbox" />
+                    </div>
+                  </td> */}
                   {columns.map(({ key, render }) => (
                     <td
                       key={key}
@@ -85,7 +96,7 @@ export default function Table<T>({ columns, data, itemsPerPage = 10 }: Props<T>)
         </table>
       </div>
 
-      {data.length > itemsPerPage && (
+      {totalItems > itemsPerPage && (
         <div className="flex justify-center">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
